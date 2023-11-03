@@ -6,7 +6,7 @@ import {
 	Text,
 	VStack,
 } from "@chakra-ui/react";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { memo, useEffect, useLayoutEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
@@ -27,8 +27,14 @@ function App() {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
+		const codes = document.querySelectorAll("pre code");
+		for (const code of codes) {
+			if (code.attributes.getNamedItem("data-highlighted") !== null) {
+				code.attributes.removeNamedItem("data-highlighted");
+			}
+		}
 		hljs.highlightAll();
-	}, [mdPath, markdown]);
+	}, [markdown]);
 
 	return (
 		<Container h="100%" maxW="8xl">
@@ -53,12 +59,7 @@ function App() {
 				<Divider pt="1em" borderColor="black" />
 
 				<Container maxW="6xl" p="1em">
-					<ReactMarkdown
-						rehypePlugins={[rehypeRaw, rehypeSanitize]}
-						remarkPlugins={[remarkGfm]}
-					>
-						{markdown}
-					</ReactMarkdown>
+					<MDView markdown={markdown} />
 				</Container>
 			</VStack>
 		</Container>
@@ -66,3 +67,14 @@ function App() {
 }
 
 export default App;
+
+const MDView = memo(({ markdown }: { markdown: string }) => {
+	return (
+		<ReactMarkdown
+			rehypePlugins={[rehypeRaw, rehypeSanitize]}
+			remarkPlugins={[remarkGfm]}
+		>
+			{markdown}
+		</ReactMarkdown>
+	);
+});

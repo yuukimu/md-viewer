@@ -1,15 +1,21 @@
-import hljs from 'highlight.js/lib/core';
-import 'highlight.js/styles/monokai.css';
-import javascript from 'highlight.js/lib/languages/javascript';
-import typescript from 'highlight.js/lib/languages/typescript';
-import kotlin from 'highlight.js/lib/languages/kotlin';
-import bash from 'highlight.js/lib/languages/bash';
-import yaml from 'highlight.js/lib/languages/yaml';
+import hljs from "highlight.js/lib/core";
+import bash from "highlight.js/lib/languages/bash";
+import go from "highlight.js/lib/languages/go";
+import java from "highlight.js/lib/languages/java";
+import javascript from "highlight.js/lib/languages/javascript";
+import kotlin from "highlight.js/lib/languages/kotlin";
+import python from "highlight.js/lib/languages/python";
+import typescript from "highlight.js/lib/languages/typescript";
+import yaml from "highlight.js/lib/languages/yaml";
+import "highlight.js/styles/monokai.css";
 
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('typescript', typescript);
-hljs.registerLanguage('kotlin', kotlin);
-hljs.registerLanguage('bash', bash);
-hljs.registerLanguage('yaml', yaml);
+hljs.registerLanguage("bash", bash);
+hljs.registerLanguage("go", go);
+hljs.registerLanguage("java", java);
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("kotlin", kotlin);
+hljs.registerLanguage("python", python);
+hljs.registerLanguage("typescript", typescript);
+hljs.registerLanguage("yaml", yaml);
 
 export default hljs;
