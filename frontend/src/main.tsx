@@ -1,17 +1,18 @@
-import React from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App'
-import { ChakraProvider } from '@chakra-ui/react'
-import './style.css'
+import { ChakraProvider } from "@chakra-ui/react";
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import "./style.css";
 
-const container = document.getElementById('root')
+const container = document.getElementById("root");
 
-const root = createRoot(container!)
+// biome-ignore lint/style/noNonNullAssertion: <explanation>
+const root = createRoot(container!);
 
 root.render(
-    <React.StrictMode>
-        <ChakraProvider>
-            <App />
-        </ChakraProvider>
-    </React.StrictMode>
-)
+	<React.StrictMode>
+		<ChakraProvider>
+			<App />
+		</ChakraProvider>
+	</React.StrictMode>,
+);
