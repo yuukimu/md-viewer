@@ -24,30 +24,6 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-// Greet returns a greeting for the given name
-func (a *App) Greet() (string, string) {
-	md, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
-		Title: "Select File",
-		Filters: []runtime.FileFilter{
-			{
-				DisplayName: "Markdown",
-				Pattern:     "*.md",
-			},
-		},
-	})
-
-	if md == "" || err != nil {
-		return "File select cancel", ""
-	}
-
-	data, err := os.ReadFile(md)
-	if err != nil {
-		return "md read error", ""
-	}
-
-	return md, string(data)
-}
-
 func (a *App) LoadMD() model.MDInfo {
 	var mdInfo model.MDInfo = model.MDInfo{
 		MDPath:  "",

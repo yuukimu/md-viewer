@@ -18,7 +18,7 @@ function App() {
 	const [mdPath, setMDPath] = useState<string>("");
 	const [markdown, setMarkdown] = useState<string>("");
 
-	function greet() {
+	function readMD() {
 		LoadMD().then((mdInfo) => {
 			setMDPath(mdInfo.md_path);
 			setMarkdown(mdInfo.content);
@@ -41,7 +41,7 @@ function App() {
 			<VStack p="1em">
 				<Container maxW="6xl" h="40px">
 					<Flex gap="3">
-						<Button colorScheme="teal" onClick={greet}>
+						<Button colorScheme="teal" onClick={readMD}>
 							Read
 						</Button>
 						<Text
