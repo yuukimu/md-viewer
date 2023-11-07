@@ -5,7 +5,7 @@ a {
 pre {
   padding-top: 1em;
   padding-bottom: 1em;
-  background-color: #272822 !important;
+  /* background-color: #272822 !important; */
 }
 
 pre code {
