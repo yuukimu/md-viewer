@@ -6,6 +6,7 @@ import {
 	Text,
 	VStack,
 } from "@chakra-ui/react";
+import "github-markdown-css/github-markdown-light.css";
 import { memo, useEffect, useLayoutEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -71,6 +72,7 @@ export default App;
 const MDView = memo(({ markdown }: { markdown: string }) => {
 	return (
 		<ReactMarkdown
+			className="markdown-body"
 			rehypePlugins={[rehypeRaw, rehypeSanitize]}
 			remarkPlugins={[remarkGfm]}
 		>

@@ -1,11 +1,11 @@
 a {
-  color:blue !important;
   font-weight: bold;
 }
 
 pre {
   padding-top: 1em;
   padding-bottom: 1em;
+  background-color: #272822 !important;
 }
 
 pre code {
