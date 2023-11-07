@@ -8,6 +8,7 @@ import powershell from "highlight.js/lib/languages/powershell";
 import python from "highlight.js/lib/languages/python";
 import typescript from "highlight.js/lib/languages/typescript";
 import yaml from "highlight.js/lib/languages/yaml";
+import "highlight.js/styles/monokai.css";
 
 hljs.registerLanguage("bash", bash);
 hljs.registerLanguage("go", go);
