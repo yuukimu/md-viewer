@@ -1,6 +1,4 @@
 import {
-	Badge,
-	Box,
 	Button,
 	Container,
 	Divider,
@@ -9,13 +7,13 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 import "github-markdown-css/github-markdown-light.css";
-import { memo, useEffect, useLayoutEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import { LoadMD } from "../wailsjs/go/main/App";
-// import Code from "./components/CustomCode";
+import CustomCode from "./components/CustomCode";
 import hljs from "./lib/custom-highlight";
 
 function App() {
@@ -81,21 +79,9 @@ const MDView = memo(({ markdown }: { markdown: string }) => {
 			components={{
 				code(props) {
 					const { node, ...rest } = props;
-					console.log(rest);
-					const classNames = rest.className
-						? rest.className.split(":")
-						: [rest.className, "javascript"];
-					const lang = classNames[0];
-					const fileName = classNames[1];
+					const classAttr = rest.className;
 					const value = rest.children;
-					return (
-						<Box backgroundColor="#272822">
-							<Badge py="0.3em" px="0.5em" backgroundColor="gray.400">
-								{fileName}
-							</Badge>
-							<code className={lang}>{value}</code>
-						</Box>
-					);
+					return <CustomCode classAttr={classAttr} value={value} />;
 				},
 			}}
 		>
