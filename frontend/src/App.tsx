@@ -7,12 +7,13 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 import "github-markdown-css/github-markdown-light.css";
-import { memo, useEffect, useLayoutEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import { LoadMD } from "../wailsjs/go/main/App";
+import CustomCode from "./components/CustomCode";
 import hljs from "./lib/custom-highlight";
 
 function App() {
@@ -75,6 +76,14 @@ const MDView = memo(({ markdown }: { markdown: string }) => {
 			className="markdown-body"
 			rehypePlugins={[rehypeRaw, rehypeSanitize]}
 			remarkPlugins={[remarkGfm]}
+			components={{
+				code(props) {
+					const { node, ...rest } = props;
+					const classAttr = rest.className;
+					const value = rest.children;
+					return <CustomCode classAttr={classAttr} value={value} />;
+				},
+			}}
 		>
 			{markdown}
 		</ReactMarkdown>
