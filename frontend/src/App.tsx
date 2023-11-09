@@ -86,12 +86,14 @@ const MDView = memo(
 						return <CustomCode classAttr={classAttr} value={value} />;
 					},
 					img(props) {
-						const { src, title, alt, ...rest } = props;
+						const { src, title, alt, width, height, ...rest } = props;
 						return (
 							<CustomImg
 								mdPath={mdPath}
 								src={src as string}
 								alt={alt as string}
+								width={width}
+								height={height}
 							/>
 						);
 					},
