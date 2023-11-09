@@ -14,6 +14,7 @@ import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import { LoadMD } from "../wailsjs/go/main/App";
 import CustomCode from "./components/CustomCode";
+import CustomImg from "./components/CustomImg";
 import hljs from "./lib/custom-highlight";
 
 function App() {
@@ -61,7 +62,7 @@ function App() {
 				<Divider pt="1em" borderColor="black" />
 
 				<Container maxW="6xl" p="1em">
-					<MDView markdown={markdown} />
+					<MDView mdPath={mdPath} markdown={markdown} />
 				</Container>
 			</VStack>
 		</Container>
@@ -70,22 +71,34 @@ function App() {
 
 export default App;
 
-const MDView = memo(({ markdown }: { markdown: string }) => {
-	return (
-		<ReactMarkdown
-			className="markdown-body"
-			rehypePlugins={[rehypeRaw, rehypeSanitize]}
-			remarkPlugins={[remarkGfm]}
-			components={{
-				code(props) {
-					const { node, ...rest } = props;
-					const classAttr = rest.className;
-					const value = rest.children;
-					return <CustomCode classAttr={classAttr} value={value} />;
-				},
-			}}
-		>
-			{markdown}
-		</ReactMarkdown>
-	);
-});
+const MDView = memo(
+	({ mdPath, markdown }: { mdPath: string; markdown: string }) => {
+		return (
+			<ReactMarkdown
+				className="markdown-body"
+				rehypePlugins={[rehypeRaw, rehypeSanitize]}
+				remarkPlugins={[remarkGfm]}
+				components={{
+					code(props) {
+						const { node, ...rest } = props;
+						const classAttr = rest.className;
+						const value = rest.children;
+						return <CustomCode classAttr={classAttr} value={value} />;
+					},
+					img(props) {
+						const { src, title, alt, ...rest } = props;
+						return (
+							<CustomImg
+								mdPath={mdPath}
+								src={src as string}
+								alt={alt as string}
+							/>
+						);
+					},
+				}}
+			>
+				{markdown}
+			</ReactMarkdown>
+		);
+	},
+);
