@@ -1,14 +1,8 @@
 import { CopyIcon } from "@chakra-ui/icons";
-import {
-	Badge,
-	Box,
-	Flex,
-	IconButton,
-	Spacer,
-	Tooltip,
-} from "@chakra-ui/react";
+import { Badge, Box, IconButton, Tooltip } from "@chakra-ui/react";
 import { useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { supportLangs } from "../lib/custom-highlight";
 
 interface Props {
 	classAttr: string | undefined;
@@ -30,19 +24,21 @@ export default function CustomCode({ classAttr, value }: Props) {
 	};
 
 	const classNames =
-		classAttr !== undefined
-			? classAttr.split(":")
-			: ["language-javascript", ""];
-	const lang = classNames[0];
-	const fileName = classNames[1] ? classNames[1] : "";
+		classAttr !== undefined ? classAttr.split(":") : ["nohighlight", undefined];
+	const lang = supportLangs[classNames[0] as string]
+		? classNames[0]
+		: "language-plaintext";
+	const fileName = classNames[1];
+	if (classNames[0] === "nohighlight") {
+		return <code className={classNames[0]}>{value}</code>;
+	}
 	return (
 		<Box
-			backgroundColor="#272822"
 			position="relative"
 			onMouseEnter={() => setShowCopyToClipboard(true)}
 			onMouseLeave={() => setShowCopyToClipboard(false)}
 		>
-			{fileName !== "" && (
+			{fileName !== undefined && (
 				<Badge h="100%" py="0.3em" px="0.5em" backgroundColor="gray.400">
 					{fileName}
 				</Badge>
