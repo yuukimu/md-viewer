@@ -1,24 +1,3 @@
 a {
   font-weight: bold;
 }
-
-pre {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  /* background-color: #272822 !important; */
-}
-
-pre code {
-  display: block;
-  overflow-x: auto;
-  padding: 1em;
-}
-
-table {
-  margin-top: 1em;
-}
-
-th, td {
-  padding: 0.3em 0.5em;
-  border: 1px solid black;
-}
