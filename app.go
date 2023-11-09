@@ -2,7 +2,11 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
+	"fmt"
+	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"github.com/yuukimu/md-viewer/model"
@@ -54,4 +58,35 @@ func (a *App) LoadMD() model.MDInfo {
 	}
 
 	return mdInfo
+}
+
+func (a *App) LoadImgBase64(mdpath string, imgpath string) string {
+	abspath := a.getAbsPath([] string{mdpath, imgpath})
+
+	bytes, err := os.ReadFile(abspath)
+	if err != nil {
+		return "error"
+	}
+	b64str := base64.StdEncoding.EncodeToString(bytes)
+	
+	b, err := base64.StdEncoding.DecodeString(b64str)
+	if err != nil {
+		return "error"
+	}
+	ext :=  filepath.Ext(imgpath)
+	fmt.Println(ext)
+	// SVGのmimetypeが取得出来ないので拡張子で判別
+	if ext == ".svg" {
+		return fmt.Sprintf("data:%s;base64,%s", "image/svg+xml", base64.StdEncoding.EncodeToString(bytes))
+	}
+	// SVG以外のmimetype
+	return fmt.Sprintf("data:%s;base64,%s", http.DetectContentType(b), base64.StdEncoding.EncodeToString(bytes))
+}
+
+// 画像ファイルの絶対パスを取得
+func (a *App) getAbsPath(paths []string) string {
+	d := filepath.Dir(paths[0])
+	os.Chdir(d)
+	abspath, _ := filepath.Abs(paths[1])
+	return abspath
 }
