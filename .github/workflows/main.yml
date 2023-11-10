@@ -5,7 +5,7 @@ on:
     branches:
     - main
     - release/*
-    - dev-github-actions
+    - dev-actions
 
 jobs:
   build:
