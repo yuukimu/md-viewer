@@ -1,0 +1,43 @@
+name: Build App
+
+on:
+  push:
+    branches:
+    - main
+    - release/*
+    - dev-github-actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.0
+        id: setup-node
+        with:
+          node-version: '18.18'
+          cache: npm
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v4.1.0
+        id: setup-go
+        with:
+          go-version: '1.21.3'
+          go-version-file: "go.mod"
+
+      - name: Download Go modules
+        shell: bash
+        if: ${{ steps.setup-go.outputs.cache-hit != 'true' }}
+        run: go mod download
+
+      - name: Wails build
+        shell: bash
+        run: make build_all && zip -r build.zip build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@3
+        with:
+          name: my-artifact
+          path: build.zip
