@@ -19,6 +19,7 @@ jobs:
         with:
           node-version: '18.18'
           cache: npm
+          cache-dependency-path: frontend/
 
       - name: Setup Go environment
         uses: actions/setup-go@v4.1.0
