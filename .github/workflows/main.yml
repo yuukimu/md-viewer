@@ -34,7 +34,7 @@ jobs:
 
       - name: Wails build
         shell: bash
-        run: make build_all && zip -r build.zip build
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@latest && make build_all && zip -r build.zip build
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
