@@ -1,3 +1,18 @@
+.PHONY: major_release
+major_release:
+	make build_all
+	./package.sh -t major
+
+.PHONY: minor_release
+minor_release:
+	make build_all
+	./package.sh -t minor
+
+.PHONY: patch_release
+patch_release:
+	make build_all
+	./package.sh -t patch
+
 .PHONY: build
 build:
 	wails build -clean
@@ -8,10 +23,10 @@ build_all:
 
 .PHONY: build_darwin_arm64
 build_darwin_arm64:
-	wails build -platform=darwin/arm64 -clean
+	wails build -platform=darwin/arm64
 
 build_darwin_amd64:
-	wails build -platform=darwin/amd64 -clean
+	wails build -platform=darwin/amd64
 
 build_windows_amd64:
-	wails build -platform=windows/amd64 -clean
+	wails build -platform=windows/amd64
