@@ -32,6 +32,10 @@ jobs:
         if: ${{ steps.setup-go.outputs.cache-hit != 'true' }}
         run: go mod download
 
+      - name: DOwnload Node modules
+        shell: bash
+        run: cd frontend && npm install
+
       - name: Wails build
         shell: bash
         run: go install github.com/wailsapp/wails/v2/cmd/wails@latest && make build_all && zip -r build.zip build
